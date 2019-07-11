@@ -25,10 +25,10 @@
     </LinearLayout>
 
     <!--<Button-->
-        <!--android:id="@+id/overlap"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="중복확인" />-->
+    <!--android:id="@+id/overlap"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="중복확인" />-->
 
     <LinearLayout
         android:id="@+id/layout_pw"

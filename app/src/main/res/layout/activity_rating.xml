@@ -17,19 +17,26 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
             android:layout_weight="8"
             android:background="#DE844F"
-            android:layout_marginLeft="12dp"
             android:gravity="center|left"
             android:text="오늘 하루 무엇을 하셨나요?"
             android:textStyle="bold" />
 
+        <ImageView
+            android:id="@+id/btn_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_help_outline_black_24dp" />
+
         <Button
+            android:id="@+id/save"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:background="#DE844F"
-            android:id="@+id/save"
             android:text="저장" />
 
 
@@ -37,67 +44,64 @@
 
 
     <EditText
+        android:id="@+id/edit1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
-        android:background="@null"
-        android:id="@+id/edit1"/>
+        android:background="@null" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
         android:background="#DE844F"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:background="#DE844F"
-        android:layout_marginLeft="12dp"
-        android:gravity="center|left"
-        android:text="오늘 하루 자신을 칭찬해 주세요"
-        android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="2"
+            android:background="#DE844F"
+            android:gravity="center|left"
+            android:text="오늘 하루 자신을 칭찬해 주세요"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
 
     <EditText
+        android:id="@+id/edit2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:background="@null"
-        android:id="@+id/edit2"/>
+        android:background="@null" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:orientation="horizontal"
         android:background="#DE844F"
-        >
+        android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:background="#DE844F"
-        android:gravity="center|left"
-        android:layout_marginLeft="12dp"
-        android:text="오늘 하루 자신을 반성해 주세요"
-        android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="2"
+            android:background="#DE844F"
+            android:gravity="center|left"
+            android:text="오늘 하루 자신을 반성해 주세요"
+            android:textStyle="bold" />
     </LinearLayout>
 
 
-
     <EditText
+        android:id="@+id/edit3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:background="@null"
-        android:id="@+id/edit3" />
+        android:background="@null" />
 
     <RatingBar
         android:id="@+id/ratingBar"

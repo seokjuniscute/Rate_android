@@ -1,12 +1,15 @@
 package com.example.Rate;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,10 +25,13 @@ public class RatingActivity extends AppCompatActivity {
     TextView textView;
     RatingBar ratingBar;
     float rate = -1;
+    AlertDialog.Builder builder;
     EditText edit1, edit2, edit3;
     Button save;
+    AlertDialog alertDialog;
     Integer year, month, days;
     TextView content, experience, rateText;
+    ImageView help;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +45,8 @@ public class RatingActivity extends AppCompatActivity {
 
         content = findViewById(R.id.your_day_content);
         experience = findViewById(R.id.your_experience_content);
+
+        help = findViewById(R.id.btn_help);
 
 
         final Intent intent = getIntent();
@@ -73,6 +81,40 @@ public class RatingActivity extends AppCompatActivity {
                 resultIntent.putExtra("rating", rate);
                 setResult(RESULT_OK,resultIntent);
                 finish();
+            }
+        });
+
+        builder = new AlertDialog.Builder(this);
+
+
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder.setTitle("Help");
+                builder.setMessage("도움이 필요하신가요?");
+                builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        builder.setTitle("Help2");
+                        builder.setMessage("친구에 대해서 써보시는 건 어떨까요??");
+                        builder.setPositiveButton("좋아요!",null);
+                        builder.setNegativeButton("다른걸로 해볼래요!",null);
+                        alertDialog = builder.create();
+                        alertDialog.show();
+
+
+                    }
+                });
+
+
+
+                builder.setNegativeButton("아니요",null);
+
+
+
+                alertDialog = builder.create();
+                alertDialog.show();
             }
         });
 
