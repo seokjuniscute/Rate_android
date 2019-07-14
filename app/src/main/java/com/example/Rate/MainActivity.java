@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -55,15 +56,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String getTime = sdf.format(date);
         String[] separated = getTime.split("-");
-         year = Integer.parseInt(separated[0]);
-         month = Integer.parseInt(separated[1]);
-         days = Integer.parseInt(separated[2]);
-         now_year = year;
-         now_month = month;
-         now_days = days;
+        year = Integer.parseInt(separated[0]);
+        month = Integer.parseInt(separated[1]);
+        days = Integer.parseInt(separated[2]);
+        now_year = year;
+        now_month = month;
+        now_days = days;
 
-        tv_title_1.setText(month+"월 "+days+"일 의 경험");
-        tv_title_2.setText(month+"월 "+days+"일 의 하루");
+        tv_title_1.setText(month + "월 " + days + "일 의 경험");
+        tv_title_2.setText(month + "월 " + days + "일 의 하루");
 
         tv_content_1.setText(pref.getString("s1", ""));
         tv_content_2.setText(pref.getString("s2", ""));
@@ -73,10 +74,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onSelectedDayChange(CalendarView view, int _year, int _month, int _dayOfMonth) {
                 year = _year;
-                month = _month+1;
+                month = _month + 1;
                 days = _dayOfMonth;
-                tv_title_1.setText(month+"월 "+days+"일 의 경험");
-                tv_title_2.setText(month+"월 "+days+"일 의 하루");
+                tv_title_1.setText(month + "월 " + days + "일 의 경험");
+                tv_title_2.setText(month + "월 " + days + "일 의 하루");
 
             }
         });
@@ -92,19 +93,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.fab_tran:
                 anim();
-                Intent intent1  = new Intent(MainActivity.this, RemindActivity.class);
+                Intent intent1 = new Intent(MainActivity.this, RemindActivity.class);
                 startActivity(intent1);
-                finish();
                 break;
 
             case R.id.fab_edit:
-                if(now_year < year || now_month < month || now_days < days){
+                if (now_year < year || now_month < month || now_days < days) {
                     Toast.makeText(this, "미래 날짜에는 작성할 수 없습니다.", Toast.LENGTH_SHORT).show();
-                }else if (now_year > year || now_month > month || now_days > days){
+                } else if (now_year > year || now_month > month || now_days > days) {
                     Toast.makeText(this, "과거 날짜는 기록만 확인이 가능합니다.", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     anim();
-                    Intent intent2  = new Intent(MainActivity.this, RatingActivity.class);
+                    Intent intent2 = new Intent(MainActivity.this, RatingActivity.class);
                     intent2.putExtra("year", year);
                     intent2.putExtra("month", month);
                     intent2.putExtra("days", days);
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void anim(){
+    public void anim() {
 
         if (isFabOpen) {
             fab_tran.startAnimation(fab_close);
@@ -138,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String s1 = data.getStringExtra("s1");
             String s2 = data.getStringExtra("s2");
             float rating = data.getFloatExtra("rating", 0);
-
             tv_content_1.setText(s1);
             tv_content_2.setText(s2);
             ratingBar.setRating(rating);

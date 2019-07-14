@@ -164,7 +164,7 @@ public class AddListActivity extends AppCompatActivity {
                         remindTime.setText(state + " " + selectedHour + "시 " + selectedMinute + "분");
                     }
                 }, hour, minute, false);
-                TimePicker.setTitle("Select Time");
+                TimePicker.setTitle("Select time");
                 TimePicker.show();
             }
         });

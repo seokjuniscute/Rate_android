@@ -32,6 +32,7 @@ public class RatingActivity extends AppCompatActivity {
     Integer year, month, days;
     TextView content, experience, rateText;
     ImageView help;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,10 +77,10 @@ public class RatingActivity extends AppCompatActivity {
                     return;
                 }
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("s1",s1);
-                resultIntent.putExtra("s2",s2 + "\n" + s3);
+                resultIntent.putExtra("s1", s1);
+                resultIntent.putExtra("s2", s2 + "\n" + s3);
                 resultIntent.putExtra("rating", rate);
-                setResult(RESULT_OK,resultIntent);
+                setResult(RESULT_OK, resultIntent);
                 finish();
             }
         });
@@ -98,8 +99,8 @@ public class RatingActivity extends AppCompatActivity {
 
                         builder.setTitle("Help2");
                         builder.setMessage("친구에 대해서 써보시는 건 어떨까요??");
-                        builder.setPositiveButton("좋아요!",null);
-                        builder.setNegativeButton("다른걸로 해볼래요!",null);
+                        builder.setPositiveButton("좋아요!", null);
+                        builder.setNegativeButton("다른걸로 해볼래요!", null);
                         alertDialog = builder.create();
                         alertDialog.show();
 
@@ -108,9 +109,7 @@ public class RatingActivity extends AppCompatActivity {
                 });
 
 
-
-                builder.setNegativeButton("아니요",null);
-
+                builder.setNegativeButton("아니요", null);
 
 
                 alertDialog = builder.create();
@@ -156,7 +155,6 @@ public class RatingActivity extends AppCompatActivity {
 //                });
 //            }
 //        });
-
 
 
     }

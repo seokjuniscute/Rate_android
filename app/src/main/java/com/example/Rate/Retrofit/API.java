@@ -2,6 +2,8 @@ package com.example.Rate.Retrofit;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Date;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -21,7 +23,11 @@ public interface API {
     @NotNull
     Call<ResponseBody> Login(@Field("id") @NotNull String id, @Field("password") @NotNull String password);
 
-    @GET("/set_rating")
+    @POST("/set_rating")
     @NotNull
-    Call<ResponseBody> setRating(@Query("id") @NotNull String id, @Query("what_you_do") @NotNull String s1, @Query("what_you_good") @NotNull String s2, @Query("what_you_bad") @NotNull String s3, @Query("year") @NotNull Integer year, @Query("month") @NotNull Integer month, @Query("day") @NotNull Integer days);
+    Call<ResponseBody> setRating(@Field("id") @NotNull String id,
+                                 @Field("what_you_do") @NotNull String s1,
+                                 @Field("what_you_good") @NotNull String s2,
+                                 @Field("what_you_bad") @NotNull String s3,
+                                 @Field("date") @NotNull Date date);
 }

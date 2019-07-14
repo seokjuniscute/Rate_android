@@ -58,13 +58,11 @@ public class RemindActivity extends AppCompatActivity implements View.OnClickLis
                 anim();
                 Intent intent  = new Intent(RemindActivity.this, com.example.Rate.MainActivity.class);
                 startActivity(intent);
-                finish();
                 break;
             case R.id.fab_add:
                 Intent intent2  = new Intent(RemindActivity.this, AddListActivity.class);
                 intent2.putExtra("position",-1);
                 startActivity(intent2);
-                finish();
                 anim();
                 break;
         }

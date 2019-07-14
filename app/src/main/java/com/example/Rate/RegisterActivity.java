@@ -23,7 +23,7 @@ import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
-//    Button overlap;
+    //    Button overlap;
     ImageView setTime, save;
     TextView Time;
     EditText ID, PW;
@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
                         minutes = selectedMinute;
                     }
                 }, hour, minute, true);
-                mTimePicker.setTitle("Select Time");
+                mTimePicker.setTitle("Select time");
                 mTimePicker.show();
             }
         });
@@ -71,28 +71,43 @@ public class RegisterActivity extends AppCompatActivity {
                 if (id.equals("") || password.equals("") || hours == -1 || minutes == -1) {
                     Toast.makeText(getApplicationContext(), "정보가 모두 입력되지 않았습니다.", Toast.LENGTH_SHORT).show();
                 }
-                Client.api.Register(id, password, hours, minutes).enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        switch (response.code()) {
-                            case 200:
-                                finish();
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                Client.id = id;
-                                break;
-                            case 403:
-                                Toast.makeText(getApplicationContext(), "회원가입 실패 : 이미 존재하는 아이디입니다.", Toast.LENGTH_SHORT).show();
-                                break;
-                            case 500:
-                                Toast.makeText(getApplicationContext(), "회원가입 실패 : 서버가 터졌어요.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                if (id.length() < 7 || id.length() > 10) {
+                    Toast.makeText(getApplicationContext(), "아이디는 7자 이상, 10자 미만으로 작성해야 합니다.", Toast.LENGTH_SHORT).show();
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    }
-                });
+                }
+                else if(password.length() < 7 || password.length() > 11){
+                    Toast.makeText(getApplicationContext(), "비밀번호는 7자이상, 11자 미만으로 작성해야합니다.",Toast.LENGTH_SHORT).show();
+                }
+                else {
+
+
+                    Client.api.Register(id, password, hours, minutes).enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            switch (response.code()) {
+                                case 200:
+                                    finish();
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    Client.id = id;
+                                    break;
+                                case 403:
+                                    Toast.makeText(getApplicationContext(), "회원가입 실패 : 이미 존재하는 아이디입니다.", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case 500:
+                                    Toast.makeText(getApplicationContext(), "회원가입 실패 : 서버가 터졌어요.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        }
+                    });
+
+
+                }
             }
         });
     }
 }
+

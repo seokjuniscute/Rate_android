@@ -1,47 +1,47 @@
 package com.example.Rate;
 public class Data {
-    String Day;
-    String Time;
-    String Contnet;
-    String Importance;
+    String day;
+    String time;
+    String contnet;
+    String importance;
 
     public Data(String day, String time, String contnet, String importance) {
-        Day = day;
-        Time = time;
-        Contnet = contnet;
-        Importance = importance;
+        this.day = day;
+        this.time = time;
+        this.contnet = contnet;
+        this.importance = importance;
     }
 
     public String getDay() {
-        return Day;
+        return day;
     }
 
     public void setDay(String day) {
-        Day = day;
+        this.day = day;
     }
 
     public String getTime() {
-        return Time;
+        return time;
     }
 
     public void setTime(String time) {
-        Time = time;
+        this.time = time;
     }
 
     public String getContnet() {
-        return Contnet;
+        return contnet;
     }
 
     public void setContnet(String contnet) {
-        Contnet = contnet;
+        this.contnet = contnet;
     }
 
     public String getImportance() {
-        return Importance;
+        return importance;
     }
 
     public void setImportance(String importance) {
-        Importance = importance;
+        this.importance = importance;
     }
 
 }
