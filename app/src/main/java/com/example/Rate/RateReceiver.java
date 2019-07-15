@@ -11,7 +11,7 @@ public class RateReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
 
-//        Log.d("alarm aaaaa", "kgjfhgdf");
-//        Toast.makeText(context,"Alarm", Toast.LENGTH_SHORT).show();
+        Log.d("alarm aaaaa", "kgjfhgdf");
+        Toast.makeText(context,"Alarm", Toast.LENGTH_SHORT).show();
     }
 }

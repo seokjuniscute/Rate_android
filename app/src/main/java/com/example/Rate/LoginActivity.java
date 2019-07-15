@@ -66,17 +66,17 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         switch (response.code()) {
                             case 200:
-                                finish();
-                                try {
-                                    String responseBody = response.body().string();
-                                    JSONObject json = new JSONObject(responseBody);
-                                    String token = json.getString("token");
-
-                                    spf.edit().putString("token", token);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                    break;
-                                }
+//                                finish();
+//                                try {
+//                                    String responseBody = response.body().string();
+//                                    JSONObject json = new JSONObject(responseBody);
+//                                    String token = json.getString("token");
+//
+//                                    spf.edit().putString("token", token);
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                    break;
+//                                }
 
                                 spf.edit().putBoolean("login", true);
 

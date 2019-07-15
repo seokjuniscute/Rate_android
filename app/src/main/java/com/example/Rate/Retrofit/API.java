@@ -23,11 +23,28 @@ public interface API {
     @NotNull
     Call<ResponseBody> Login(@Field("id") @NotNull String id, @Field("password") @NotNull String password);
 
-    @POST("/set_rating")
+    @GET("/set_time")
     @NotNull
-    Call<ResponseBody> setRating(@Field("id") @NotNull String id,
-                                 @Field("what_you_do") @NotNull String s1,
-                                 @Field("what_you_good") @NotNull String s2,
-                                 @Field("what_you_bad") @NotNull String s3,
-                                 @Field("date") @NotNull Date date);
+    Call<ResponseBody> setTime(@Query("id") @NotNull String id, @Query("hours") @NotNull String hours, @Query("minutes") @NotNull String minutes);
+
+    @GET("/set_reminder")
+    @NotNull
+    Call<ResponseBody> setReminder(@Query("id") @NotNull String id, @Query("content") @NotNull String content, @Query("hours") @NotNull String hours,@Query("minutes") @NotNull String minutes,@Query("year") @NotNull String year,@Query("month") @NotNull String month,@Query("day") @NotNull String day,@Query("importance") @NotNull String importance);
+
+    @GET("/get_reminder")
+    @NotNull
+    Call<ResponseBody> getReminder(@Query("id") @NotNull String id, @Query("hours") @NotNull String hours,@Query("minutes") @NotNull String minutes,@Query("year") @NotNull String year,@Query("month") @NotNull String month,@Query("day") @NotNull String day);
+
+    @GET("/get_time")
+    @NotNull
+    Call<ResponseBody> getTime(@Query("id") @NotNull String id);
+
+    @GET("/set_rating")
+    @NotNull
+    Call<ResponseBody> setRating(@Query("id") @NotNull String id, @Query("what_you_do") @NotNull String s1, @Query("what_you_good") @NotNull String s2, @Query("what_you_bad") @NotNull String s3, @Query("year") @NotNull Integer year, @Query("month") @NotNull Integer month, @Query("day") @NotNull Integer days, @Query("importance") @NotNull float rate);
+
+    @GET("/get_rating")
+    @NotNull
+    Call<ResponseBody> getRating(@Query("id") @NotNull String id, @Query("year") @NotNull Integer year, @Query("month") @NotNull Integer month, @Query("day") @NotNull Integer days);
+
 }

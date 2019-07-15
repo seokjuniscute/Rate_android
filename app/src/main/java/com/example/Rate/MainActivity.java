@@ -3,8 +3,8 @@ package com.example.Rate;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,10 +13,21 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.Rate.Retrofit.Client;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     FloatingActionButton fab_main, fab_edit, fab_tran;
@@ -26,14 +37,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Boolean isFabOpen = false;
     Integer year, month, days, now_year, now_month, now_days;
     RatingBar ratingBar;
-    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        pref = getSharedPreferences("pref", MODE_PRIVATE);
 
         tv_title_1 = findViewById(R.id.your_experience_title);
         tv_content_1 = findViewById(R.id.your_experience_content);
@@ -63,12 +71,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         now_month = month;
         now_days = days;
 
+        Client.api.getRating(Client.id, now_year, now_month, now_days).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                switch (response.code()) {
+                    case 200:
+                        tv_content_1.setText("error");
+                        tv_content_2.setText("error");
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject = new JSONObject(response.body().string());
+                            Log.d("!!!", jsonObject.getString("whatyougood") + '+' + jsonObject.getString("whatyoubad"));
+                            tv_content_1.setText(jsonObject.getString("whatyoudo"));
+                            tv_content_2.setText(jsonObject.getString("whatyougood") + '\n' + jsonObject.getString("whatyoubad"));
+                            ratingBar.setRating((float) jsonObject.getDouble("importance"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        break;
+                    case 400:
+                        Toast.makeText(getApplicationContext(), "레이팅 실패", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 403:
+                        Toast.makeText(getApplicationContext(), "레이팅 실패 : 없는 아이디입니다.", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 500:
+                        Toast.makeText(getApplicationContext(), "레이팅 실패 : 서버가 터졌어요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+
         tv_title_1.setText(month + "월 " + days + "일 의 경험");
         tv_title_2.setText(month + "월 " + days + "일 의 하루");
-
-        tv_content_1.setText(pref.getString("s1", ""));
-        tv_content_2.setText(pref.getString("s2", ""));
-        ratingBar.setRating(pref.getFloat("rating", 0));
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -78,7 +121,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 days = _dayOfMonth;
                 tv_title_1.setText(month + "월 " + days + "일 의 경험");
                 tv_title_2.setText(month + "월 " + days + "일 의 하루");
+                Client.api.getRating(Client.id, year, month, days).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                        switch (response.code()) {
+                            case 200:
+                                tv_content_1.setText("error");
+                                tv_content_2.setText("error");
+                                JSONObject jsonObject = null;
+                                try {
+                                    jsonObject = new JSONObject(response.body().string());
+                                    Log.d("!!!", jsonObject.getString("whatyougood") + '+' + jsonObject.getString("whatyoubad"));
+                                    tv_content_1.setText(jsonObject.getString("whatyoudo"));
+                                    tv_content_2.setText(jsonObject.getString("whatyougood") + '\n' + jsonObject.getString("whatyoubad"));
+                                    ratingBar.setRating((float) jsonObject.getDouble("importance"));
 
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                break;
+                            case 400:
+                                Toast.makeText(getApplicationContext(), "레이팅 실패", Toast.LENGTH_SHORT).show();
+                                break;
+                            case 403:
+                                Toast.makeText(getApplicationContext(), "레이팅 실패 : 없는 아이디입니다.", Toast.LENGTH_SHORT).show();
+                                break;
+                            case 500:
+                                Toast.makeText(getApplicationContext(), "레이팅 실패 : 서버가 터졌어요.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
             }
         });
     }
@@ -137,17 +217,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == 100 && resultCode == RESULT_OK) {
             String s1 = data.getStringExtra("s1");
             String s2 = data.getStringExtra("s2");
+            String s3 = data.getStringExtra("s3");
             float rating = data.getFloatExtra("rating", 0);
             tv_content_1.setText(s1);
-            tv_content_2.setText(s2);
+            tv_content_2.setText(s2 + '\n' + s3);
             ratingBar.setRating(rating);
-
-
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putString("s1", s1);
-            editor.putString("s2", s2);
-            editor.putFloat("rating", rating);
-            editor.apply();
 
         }
     }
